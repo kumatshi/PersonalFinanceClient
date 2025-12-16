@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using PersonalFinanceClient.Views;
-
-namespace PersonalFinanceClient
+﻿namespace PersonalFinanceClient
 {
     public partial class App : Application
     {
@@ -9,8 +6,7 @@ namespace PersonalFinanceClient
         {
             InitializeComponent();
 
-            var loginPage = MauiProgram.CreateMauiApp().Services.GetRequiredService<LoginPage>();
-            MainPage = new NavigationPage(loginPage);
+            MainPage = new NavigationPage(new MainPage());
         }
     }
 }

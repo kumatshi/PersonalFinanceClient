@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using PersonalFinanceClient.Services;
 using PersonalFinanceClient.Services.Api;
 using PersonalFinanceClient.Services.Auth;
 using PersonalFinanceClient.ViewModels;
@@ -23,10 +24,20 @@ namespace PersonalFinanceClient
             builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<ApiService>();
-            builder.Services.AddSingleton<AuthService>();
+            // Регистрация сервисов
+            builder.Services.AddSingleton<IApiService, ApiService>();
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IAccountsService, AccountsService>();
+            builder.Services.AddSingleton<ITransactionsService, TransactionsService>();
+            builder.Services.AddTransient<AccountsViewModel>();
+
+            // Регистрация ViewModels
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<MainViewModel>();
+
+            // Регистрация страниц
             builder.Services.AddTransient<LoginPage>();
+            builder.Services.AddTransient<MainPage>();
 
             return builder.Build();
         }
